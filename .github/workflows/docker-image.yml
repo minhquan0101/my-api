@@ -2,7 +2,7 @@ name: Node.js CI/CD
 
 on:
   push:
-    branches: [main]  # đổi thành 'main' nếu repo của bạn dùng main
+    branches: [main]
 
 jobs:
   deploy:
@@ -28,9 +28,8 @@ jobs:
 
       - name: Tag & Push image
         run: |
-          IMAGE=${{ secrets.DOCKER_USERNAME }}/my-express-app:latest
-          docker tag my-express-app $IMAGE
-          docker push $IMAGE
+          docker tag my-express-app ${{ secrets.DOCKER_USERNAME }}/my-express-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-express-app:latest
 
       - name: SSH Deploy to VPS (using password)
         uses: appleboy/ssh-action@v1.0.0
